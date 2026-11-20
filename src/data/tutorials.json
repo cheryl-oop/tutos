@@ -1,0 +1,9 @@
+[
+  {
+    "id": "tutorial-test",
+    "name": "Understanding Databases better in PHP",
+    "tags": ["PHP", "Databases"],
+    "image": "/images/coverImage.png",
+    "route": "/tutorials/database-migration"
+  }
+]
