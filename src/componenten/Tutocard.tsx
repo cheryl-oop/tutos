@@ -10,10 +10,16 @@ type Tutocard = {
 export const Tutocard = ({ tutorial }: Tutocard) => {
   return (
     <Link to={tutorial.path} className="tuto-card-container">
-      <img src={asset(tutorial.image)} alt={`${tutorial.name}`} />
+      <div className="tuto-card-img">
+        <img src={asset(tutorial.image)} alt={`${tutorial.name}`} />
+      </div>
       <div className="tutorial-card-desc">
-        <h5>{tutorial.name}</h5>
-        <p>{tutorial.tags}</p>
+        <h3>{tutorial.name}</h3>
+        <div className="card-tags">
+          {tutorial.tags.map((tags) => (
+            <p key={tags}>{tags}</p>
+          ))}
+        </div>
       </div>
     </Link>
   );

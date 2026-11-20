@@ -1,0 +1,10 @@
+.hero {
+  display: grid;
+  place-items: center;
+  min-height: 100vh;
+}
+
+.hero-content {
+  text-align: left;
+  max-width: 52rem;
+}

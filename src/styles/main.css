@@ -1,0 +1,67 @@
+body {
+  margin: 0;
+  padding: 0;
+}
+
+section {
+  background-color: var(--color-bg);
+  margin: var(--space-s) var(--space-m);
+}
+
+h1,
+h2,
+h3,
+h4 {
+  color: var(--color-text);
+}
+
+h1 {
+  font-family: var(--font-heading);
+  font-size: var(--text-hero);
+  line-height: 1rem;
+}
+
+h2 {
+  font-family: var(--font-heading);
+  font-size: var(--text-xl);
+  line-height: 1rem;
+}
+
+h3 {
+  line-height: 0.5rem;
+}
+p {
+  font-family: var(--font-text);
+  font-size: var(--text-base);
+  margin-bottom: var(--space-m);
+}
+
+a {
+  display: inline;
+  text-decoration: none;
+
+  background-color: var(--color-accent-pink);
+  color: var(--color-text);
+  font-family: var(--font-heading);
+  font-size: clamp(1rem, 1.5rem + 4vw, 1.5rem);
+
+  padding: 0.5rem 1rem;
+  min-height: 1rem;
+  border: none;
+  cursor: pointer;
+  transition:
+    background-color 0.2s,
+    color 0.2s,
+    transform 0.2s;
+}
+
+a.active {
+  background-color: var(--color-text);
+  color: var(--color-accent-pink);
+  transform: scale(0.96);
+}
+
+a:hover {
+  background-color: var(--color-text);
+  color: var(--color-accent-pink);
+}
