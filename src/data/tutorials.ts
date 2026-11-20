@@ -5,7 +5,7 @@ export type Tutorial = {
   name: string;
   tags: string[];
   image: string;
-  route: string;
+  path: string;
 };
 
 export const getTutorialById = (id: string) =>

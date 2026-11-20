@@ -1,3 +1,6 @@
+import { tutorials } from "../data/tutorials";
+import { Tutocard } from "../componenten/Tutocard.tsx";
+
 export const Tutorials = () => {
   return (
     <>
@@ -6,7 +9,9 @@ export const Tutorials = () => {
         <p>Description</p>
       </section>
       <section className="tutorials-container">
-        
+        {tutorials.map((tutorial) => (
+          <Tutocard tutorial={tutorial} />
+        ))}
       </section>
     </>
   );

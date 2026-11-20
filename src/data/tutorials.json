@@ -1,9 +1,9 @@
 [
   {
     "id": "tutorial-test",
-    "name": "Understanding Databases better in PHP",
+    "name": "Deep dive: Database Indexing & Query Optimization",
     "tags": ["PHP", "Databases"],
     "image": "/images/coverImage.png",
-    "route": "/tutorials/database-migration"
+    "path": "/tutorials/MVC-deepdive"
   }
 ]
