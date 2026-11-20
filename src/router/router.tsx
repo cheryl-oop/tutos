@@ -14,7 +14,7 @@ export const router = createBrowserRouter(
       element: <Tutorials />,
     },
     {
-      path: "/tutorials/Database-migration",
+      path: "/tutorials/DatabaseIndex",
       element: <DatabaseIndex />,
     },
   ],

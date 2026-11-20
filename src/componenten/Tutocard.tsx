@@ -9,11 +9,7 @@ type Tutocard = {
 
 export const Tutocard = ({ tutorial }: Tutocard) => {
   return (
-    <Link
-      to={tutorial.path}
-      key={tutorial.path}
-      className="tuto-card-container"
-    >
+    <Link to={tutorial.path} className="tuto-card-container">
       <img src={asset(tutorial.image)} alt={`${tutorial.name}`} />
       <div className="tutorial-card-desc">
         <h5>{tutorial.name}</h5>

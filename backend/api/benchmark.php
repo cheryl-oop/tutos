@@ -1,55 +1,96 @@
+
 <?php
 
 header('Content-Type: application/json');
+header('Vary: Origin');
 
-require_once __DIR__ . '/../config.php';
+$allowedOrigin = getenv('FRONTEND_ORIGIN') ?: 'http://localhost:5173';
+$origin = $_SERVER['HTTP_ORIGIN'] ?? '';
 
-// Only allow GET requests
-if ($_SERVER['REQUEST_METHOD'] !== 'GET') {
-    http_response_code(405);
-    echo json_encode(['error' => 'Only GET requests are allowed']);
+if ($origin === $allowedOrigin) {
+    header("Access-Control-Allow-Origin: $allowedOrigin");
+}
+
+header('Access-Control-Allow-Methods: GET, OPTIONS');
+header('Access-Control-Allow-Headers: Content-Type');
+
+if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+    http_response_code(204);
     exit;
 }
 
-// Get the email from the URL
-$email = $_GET['email'] ?? '';
+if ($_SERVER['REQUEST_METHOD'] !== 'GET') {
+    http_response_code(405);
+    echo json_encode(['success' => false, 'error' => 'Method not allowed']);
+    exit;
+}
 
-// Validate email
+require_once __DIR__ . '/../readonly-config.php';
+
+$email = $_GET['email'] ?? '';
+$mode = $_GET['mode'] ?? '';
+
 if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
     http_response_code(400);
-    echo json_encode(['error' => 'Please provide a valid email']);
+    echo json_encode(['success' => false, 'error' => 'Invalid email address']);
+    exit;
+}
+
+// Only allow these two predefined tables.
+$tables = [
+    'indexed' => 'users_indexed',
+    'unindexed' => 'users_unindexed'
+];
+
+if (!isset($tables[$mode])) {
+    http_response_code(400);
+    echo json_encode(['success' => false, 'error' => 'Invalid benchmark mode']);
     exit;
 }
 
 try {
-    // Prepare the SQL query
+    $table = $tables[$mode];
+
     $sql = "SELECT id, username, email, city, created_at
-            FROM users
-            WHERE email = :email";
+            FROM $table
+            WHERE email = :email
+            LIMIT 1";
 
     $stmt = $pdo->prepare($sql);
 
-    // Start measuring
-    $startTime = microtime(true);
+    $times = [];
+    $user = null;
 
-    // Execute the query
-    $stmt->execute([
-        'email' => $email
-    ]);
+    // Run the same query 15 times.
+    for ($i = 0; $i < 15; $i++) {
+        $startTime = microtime(true);
 
-    $user = $stmt->fetch();
+        $stmt->execute(['email' => $email]);
+        $result = $stmt->fetch();
 
-    // Stop measuring
-    $endTime = microtime(true);
+        $endTime = microtime(true);
 
-    $executionTime = ($endTime - $startTime) * 1000;
+        $times[] = ($endTime - $startTime) * 1000;
 
-    // Return the result
+        $user = $result ?: null;
+    }
+
+    // Calculate median execution time.
+    sort($times);
+
+    $median = $times[7];
+
     echo json_encode([
         'success' => true,
-        'user' => $user ?: null,
-        'execution_time_ms' => round($executionTime, 3),
-        'found' => $user !== false
+        'mode' => $mode,
+        'user' => $user,
+        'found' => $user !== null,
+        'execution_time_ms' => round($median, 3),
+        'sample_count' => count($times),
+        'times_ms' => array_map(
+            fn($time) => round($time, 3),
+            $times
+        )
     ]);
 
 } catch (PDOException $e) {
@@ -60,3 +101,4 @@ try {
         'error' => 'Database query failed'
     ]);
 }
+

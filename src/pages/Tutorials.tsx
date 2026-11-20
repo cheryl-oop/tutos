@@ -10,7 +10,7 @@ export const Tutorials = () => {
       </section>
       <section className="tutorials-container">
         {tutorials.map((tutorial) => (
-          <Tutocard tutorial={tutorial} />
+          <Tutocard key={tutorial.path} tutorial={tutorial} />
         ))}
       </section>
     </>

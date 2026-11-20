@@ -4,6 +4,6 @@
     "name": "Deep dive: Database Indexing & Query Optimization",
     "tags": ["PHP", "Databases"],
     "image": "/images/coverImage.png",
-    "path": "/tutorials/MVC-deepdive"
+    "path": "/tutorials/DatabaseIndex"
   }
 ]
