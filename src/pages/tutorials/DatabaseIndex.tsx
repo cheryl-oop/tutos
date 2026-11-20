@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router";
+import "./DatavaseIndex.css";
 
 type BenchmarkResult = {
   success: boolean;
@@ -69,15 +70,13 @@ export const DatabaseIndex = () => {
       : null;
 
   return (
-    <>
+    <main>
       <Link to="/tutorials">← Terug</Link>
 
       <h1>Deep dive: Database Indexing & Query Optimization</h1>
-      <h4>Why is my database so slow???</h4>
-
       <p>
-        An interactive exploration of MySQL indexes, query performance and
-        execution plans.
+        Why is my database so slow??? An interactive exploration of MySQL
+        indexes, query performance and execution plans.
       </p>
 
       <section className="problem">
@@ -101,11 +100,12 @@ export const DatabaseIndex = () => {
 
         <p>
           Run the same query with and without an index on the email column and
-          compare the results.
+          compare the results!
         </p>
 
         <div className="benchmark-panel">
           <label htmlFor="email">Email to search</label>
+          <p>Search from user_000000@example.com to user_999999@example.com </p>
 
           <input
             id="email"
@@ -136,7 +136,7 @@ export const DatabaseIndex = () => {
 
           <div className="benchmark-results">
             <div className="result-card">
-              <h3>Without index</h3>
+              <h4>Without index</h4>
 
               {withoutIndex ? (
                 <>
@@ -156,7 +156,7 @@ export const DatabaseIndex = () => {
             </div>
 
             <div className="result-card">
-              <h3>With index</h3>
+              <h4>With index</h4>
 
               {withIndex ? (
                 <>
@@ -178,14 +178,7 @@ export const DatabaseIndex = () => {
 
           {improvement !== null && speedDifference !== null && (
             <div className="comparison-summary">
-              <h3>Comparison</h3>
-
-              <p>
-                {speedDifference >= 0
-                  ? `The indexed query was ${speedDifference.toFixed(3)} ms faster.`
-                  : `The indexed query was ${Math.abs(speedDifference).toFixed(3)} ms slower in this run.`}
-              </p>
-
+              <h4>Comparison</h4>
               <p>
                 {improvement >= 0
                   ? `${improvement.toFixed(1)}% less execution time with the index.`
@@ -208,6 +201,6 @@ export const DatabaseIndex = () => {
           affects index usage.
         </h2>
       </section>
-    </>
+    </main>
   );
 };

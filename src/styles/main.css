@@ -30,13 +30,20 @@ h2 {
 h3 {
   line-height: 0.5rem;
 }
+
+h4,
+label {
+  font-size: var(--text-lg);
+  font-family: var(--font-heading);
+}
 p {
   font-family: var(--font-text);
   font-size: var(--text-base);
   margin-bottom: var(--space-m);
 }
 
-a {
+a,
+button {
   display: inline;
   text-decoration: none;
 
@@ -55,13 +62,15 @@ a {
     transform 0.2s;
 }
 
-a.active {
+a.active,
+button.active {
   background-color: var(--color-text);
   color: var(--color-accent-pink);
   transform: scale(0.96);
 }
 
-a:hover {
+a:hover,
+button:hover {
   background-color: var(--color-text);
   color: var(--color-accent-pink);
 }
