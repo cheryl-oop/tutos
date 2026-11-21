@@ -64,8 +64,9 @@ try {
     for ($i = 0; $i < 15; $i++) {
         $startTime = microtime(true);
 
-        $stmt->execute(['email' => $email]);
-        $result = $stmt->fetch();
+        $stmt->bindValue(':email', trim($email), PDO::PARAM_STR);
+$stmt->execute();
+$result = $stmt->fetch(PDO::FETCH_ASSOC);
 
         $endTime = microtime(true);
 
