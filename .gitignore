@@ -25,3 +25,7 @@ dist-ssr
 
 /backend/config.php
 backend/readonly-config.php
+
+.env
+.env.*
+!.env.example
