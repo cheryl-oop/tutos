@@ -25,7 +25,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'GET') {
     exit;
 }
 
-require_once __DIR__ . '/../readonly-config.php';
+require_once __DIR__ . '/../db.php';
 
 $email = $_GET['email'] ?? '';
 $mode = $_GET['mode'] ?? '';
