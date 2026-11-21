@@ -1,13 +1,19 @@
+
 <?php
 
 header('Content-Type: application/json');
-header('Vary: Origin');
 
-$allowedOrigin = getenv('FRONTEND_ORIGIN') ?: 'http://localhost:5173';
+$allowedOrigins = [
+    'https://tutos-production.up.railway.app',
+    'http://localhost:5173'
+];
+
 $origin = $_SERVER['HTTP_ORIGIN'] ?? '';
 
-if ($origin === $allowedOrigin) {
-    header("Access-Control-Allow-Origin: $allowedOrigin");
+header('Vary: Origin');
+
+if (in_array($origin, $allowedOrigins, true)) {
+    header("Access-Control-Allow-Origin: $origin");
 }
 
 header('Access-Control-Allow-Methods: GET, OPTIONS');
@@ -20,7 +26,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
 
 if ($_SERVER['REQUEST_METHOD'] !== 'GET') {
     http_response_code(405);
-    echo json_encode(['success' => false, 'error' => 'Method not allowed']);
+    echo json_encode([
+        'success' => false,
+        'error' => 'Method not allowed'
+    ]);
     exit;
 }
 
@@ -31,7 +40,10 @@ $mode = $_GET['mode'] ?? '';
 
 if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
     http_response_code(400);
-    echo json_encode(['success' => false, 'error' => 'Invalid email address']);
+    echo json_encode([
+        'success' => false,
+        'error' => 'Invalid email address'
+    ]);
     exit;
 }
 
@@ -43,7 +55,10 @@ $tables = [
 
 if (!isset($tables[$mode])) {
     http_response_code(400);
-    echo json_encode(['success' => false, 'error' => 'Invalid benchmark mode']);
+    echo json_encode([
+        'success' => false,
+        'error' => 'Invalid benchmark mode'
+    ]);
     exit;
 }
 
@@ -65,8 +80,8 @@ try {
         $startTime = microtime(true);
 
         $stmt->bindValue(':email', trim($email), PDO::PARAM_STR);
-$stmt->execute();
-$result = $stmt->fetch(PDO::FETCH_ASSOC);
+        $stmt->execute();
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
 
         $endTime = microtime(true);
 
