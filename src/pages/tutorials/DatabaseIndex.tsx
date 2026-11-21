@@ -75,15 +75,61 @@ export const DatabaseIndex = () => {
 
       <h1>Deep dive: Database Indexing & Query Optimization</h1>
       <p>
-        Why is my database so slow??? An interactive exploration of MySQL
-        indexes, query performance and execution plans.
+        When a database has a few rows, finding a record feels so fast enough
+        that you never think about it. But grow that table to thousands or
+        millions of rows and suddenly the same query crawls. What changed?
       </p>
+      <p>
+        Without an index, MySQL may have to examine every single row in the
+        table to find what you're looking for. That's called a full table scan,
+        and it's the thing quietly killing your query performance! In this
+        tutorial we'll look at how indexes help MySQL find data faster, compare
+        query performance with and without one, and use MySQL's execution plans
+        to see what's actually happening behind the scenes. And maybe when a
+        query feels slow next time, you'll know exactly where to look.
+      </p>
+      <section className="problem">
+        <h2>0. Before we start</h2>
+        <p>
+          Before starting this tutorial, the reader should have:
+          <ul>
+            <li> Basic knowledge of SQL</li>
+            <li>Basic knowledge of SELECT queries.</li>
+            <li> Understanding what tables, rows and columns are.</li>
+            <li>
+              A MySQL database environment.
+              <span>
+                (Tip: You can use MySQL Workbench, but you will need a MySQL
+                server!)
+              </span>
+            </li>
+          </ul>
+        </p>
+      </section>
 
       <section className="problem">
         <h2>
           1. <span className="bold">The problem:</span> Why searching through
           thousands of rows is inefficient
         </h2>
+        <img src="" />
+        <p>
+          Picture a users table with 100,000 rows, and you're hunting for one
+          specific person. If there's no index on the column you're searching,
+          MySQL has no shortcut! It has to check row after row until it finds a
+          match.<span className="highlight">That's a full table scan.</span>
+        </p>
+
+        <p>
+          It works, sure. But the cost scales with the table: 100 rows could be
+          alright, but 100,000 will slow things down...by a lot! And table
+          that's queried constantly pays that cost every single time.
+        </p>
+        <p>
+          This is the problem <span className="highlight">indexes</span> solve.
+          Instead of reading every row, an index lets the database jump much
+          closer to the data it needs. So let's see how it works!
+        </p>
       </section>
 
       <section className="indexes">

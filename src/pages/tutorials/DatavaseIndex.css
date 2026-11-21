@@ -17,6 +17,13 @@ main h2 {
   margin-bottom: var(--space-s);
 }
 
+ul span {
+  color: rgb(249, 43, 136);
+}
+
+.highlight {
+  background-color: var(--color-accent-pink);
+}
 .benchmark-panel {
   padding: 1.5rem;
   border: 1px solid #d1d5db;
