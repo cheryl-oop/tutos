@@ -1,0 +1,61 @@
+/* HEADER */
+
+.logo p {
+  font-weight: bold;
+  display: inline;
+}
+.header {
+  position: relative;
+  z-index: 100;
+  font-family: var(--font-heading);
+  color: var(--color-text);
+}
+
+.header-container {
+  width: 90%;
+  margin: 0 auto;
+  padding: 1.5rem 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  z-index: 102;
+  gap: 1rem;
+}
+
+/* DESKTOP */
+
+.desktop-nav {
+  display: flex;
+  align-items: center;
+  gap: 3rem;
+}
+
+.desktop-nav a,
+.desktop-contact,
+.logo {
+  text-decoration: none;
+  color: var(--color-text);
+  background-color: var(--color-accent-pink);
+  padding: 0.5rem 1rem;
+  min-height: 1rem;
+  border: none;
+  cursor: pointer;
+  transition:
+    background-color 0.2s,
+    color 0.2s,
+    transform 0.2s;
+}
+
+.desktop-nav a.active,
+.desktop-contact.active {
+  background-color: var(--color-text);
+  color: var(--color-accent-pink);
+  transform: scale(0.96);
+}
+
+.desktop-nav a:hover,
+.desktop-contact:hover {
+  background-color: var(--color-text);
+  color: var(--color-accent-pink);
+}

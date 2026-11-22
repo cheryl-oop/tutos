@@ -1,9 +1,11 @@
 import { Link } from "react-router";
+import { Header } from "../componenten/Header";
 import "./Homepage.css";
 
 export const Homepage = () => {
   return (
     <>
+      <Header />
       <section className="hero">
         <div className="hero-content">
           <h1>Tutorials for dumdums</h1>
